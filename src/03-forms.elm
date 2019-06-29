@@ -72,7 +72,11 @@ viewInput t p v toMsg =
 
 viewValidation : Model -> Html msg
 viewValidation model =
-  if model.password == model.passwordAgain then
+  if String.isEmpty model.password && String.isEmpty model.passwordAgain then
+    div [] [text ""]
+  else if model.password == model.passwordAgain then
     div [ style "color" "green" ] [ text "OK" ]
+  else if String.isEmpty model.password || String.isEmpty model.passwordAgain then
+    div [ style "color" "yellowgreen" ] [ text "enter both passwords" ]
   else
     div [ style "color" "red" ] [ text "Passwords do not match!" ]
